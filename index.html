@@ -2,7 +2,7 @@
 
 
 
-
+let win = 0;
 function computerPlay() {
     let computerChoice = Math.floor(Math.random() * 3);
     if (computerChoice === 0) {
@@ -16,21 +16,52 @@ function computerPlay() {
     return computerChoice;
 }
 
-function game(playerChoice, computerSelection) {
+function playRound(playerChoice, computerSelection) {
+    var win = 0; //-1 for draw, 0 for computer win, 1 for player win
     if (playerChoice === "rock" && computerSelection === "paper") {
-        "Player wins!";
+        win = 0;
+        return "Computer wins! Paper beats rock";
     } else if (computerSelection === "rock" && playerChoice === "paper") {
-        return "Computer wins!";
+        win = 1;
+        return "Player wins! Paper beats rock";
     } else if (playerChoice === "rock" && computerSelection === "scissors") {
-        return "Player wins!";
-    } else if (playerChoice === "scissors" && computerSelection === "rock") {
-        return "Computer wins!";
+        win = 1;
+        return "Player wins! Rock beats scissors";
+    } else if (computerSelection === "rock" && playerChoice === "scissors") {
+        win = 0;
+        return "Computer wins! Rock beats scissors";
     } else if (playerChoice === "scissors" && computerSelection === "paper") {
-        return "Player wins!";
+        win = 1;
+        return "Player wins! Scissors beats paper";
+    } else if (playerChoice === "paper" && computerSelection === "scissors") {
+        win = 0;
+        return "Computer wins! Scissors beats paper";
     } else if (playerChoice === computerSelection) {
         return "It's a draw!";
     }
 }
 
+
+function game() {
+    let i = 0;
+    let draw = 0;
+    let userWin = 0;
+    let compWin = 0;
+    let games = prompt("How many games to play?");
+    while (i < games) {
+        let computerChoice = computerPlay();
+        let playerChoice = prompt("Rock, paper or scissors?");
+        console.log(playRound(playerChoice, computerChoice))
+        if (win === 0) {
+            compWin++;
+        } else if (win === 1) {
+            userWin++;
+        } else {
+            draw++
+        }
+        console.log("Round nr: " + i  + " Comp. wins: " + compWin + " Player wins: " + userWin + " Draws: " + draw);
+        i++;
+    }   
+}
 
 </script>
